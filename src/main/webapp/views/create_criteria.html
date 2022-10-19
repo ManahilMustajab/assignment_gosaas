@@ -1,0 +1,275 @@
+<div id="create_criteria_div" class="col-md-6 col-md-offset-3">
+  <div class="form-horizontal">
+    <h2>Create Criteria</h2>
+
+    <hr />
+
+    <div class="form-group">
+      <label class="control-label col-sm-3">Change Type</label>
+      <div class="col-sm-9">
+        <select
+          class="form-control"
+          data-bind="enable: enableCriteriaEdit(), options: changeTypes, optionsText: 'displayName', value: changeType, event:{ change: handleChangeTypeChange}, select2: select2Config"
+        ></select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">Workflow Status</label>
+      <div class="col-sm-9">
+        <select
+          class="form-control"
+          data-bind="options: wfStatuses, optionsText: 'displayName', value: wfStatus, select2: select2Config"
+        ></select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">Criteria</label>
+      <div class="col-sm-9">
+        <div class="input-group">
+          <textarea
+            rows="3"
+            class="form-control"
+            data-bind="value: criteria"
+            disabled
+          >
+          </textarea>
+          <span id="editCriteriaButton" class="input-group-btn">
+            <button
+              type="button"
+              class="btn btn-warning"
+              data-toggle="modal"
+              data-target="#edit_criteria"
+              data-bind="enable: enableCriteriaEdit()"
+            >
+              <i class="glyphicon glyphicon-pencil"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <hr />
+    
+    <div class="form-group">
+      <label class="control-label col-sm-3">Approvers (Users)</label>
+      <div class="col-sm-9">
+        <select
+          class="form-control"
+          data-bind="select2Data: approvers, select2: approversSelect2"
+          multiple="multiple"
+        ></select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">Approvers (Roles)</label>
+      <div class="col-sm-9">
+        <select
+          class="form-control"
+          data-bind="select2Data: approverGroups, select2: approverGroupsSelect2"
+          multiple="multiple"
+        ></select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">Approvers (Dynamic)</label>
+      <div class="col-sm-9">
+        <select
+          class="form-control"
+          data-bind="options: dynamicFields, optionsText: 'text', selectedOptions: selectedDynamicFields, select2: select2Config"
+          multiple="multiple"
+        ></select>
+      </div>
+    </div>
+    
+    <hr />
+    
+    <div class="form-group">
+      <label class="control-label col-sm-3">Optional Approvers (Users)</label>
+      <div class="col-sm-9">
+        <select
+          class="form-control"
+          data-bind="select2Data: optionalApprovers, select2: approversSelect2"
+          multiple="multiple"
+        ></select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">Optional Approvers (Roles)</label>
+      <div class="col-sm-9">
+        <select
+          class="form-control"
+          data-bind="select2Data: optionalApproverGroups, select2: approverGroupsSelect2"
+          multiple="multiple"
+        ></select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">Optional Approvers (Dynamic)</label>
+      <div class="col-sm-9">
+        <select
+          class="form-control"
+          data-bind="options: dynamicFields, optionsText: 'text', selectedOptions: optionalApproversDynamic, select2: select2Config"
+          multiple="multiple"
+        ></select>
+      </div>
+    </div>
+    
+    <hr />
+    
+    <div class="form-group">
+      <label class="control-label col-sm-3">Notifiers (Users)</label>
+      <div class="col-sm-9">
+        <select
+          class="form-control"
+          data-bind="select2Data: notifiers, select2: approversSelect2"
+          multiple="multiple"
+        ></select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-3">Notifiers (Dynamic)</label>
+      <div class="col-sm-9">
+        <select
+          class="form-control"
+          data-bind="options: dynamicFields, optionsText: 'text', selectedOptions: notifiersDynamic, select2: select2Config"
+          multiple="multiple"
+        ></select>
+      </div>
+    </div>
+    
+    <hr />
+    
+    <div class="form-group">
+      <label class="control-label col-sm-3">Assigned To</label>
+      <div class="col-sm-9">
+        <select
+          class="form-control"
+          data-bind="select2Data: assignedTo, select2: approversSelect2"
+        ></select>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="form-group">
+      <div class="col-sm-offset-3 col-sm-9">
+        <button class="btn btn-primary" data-bind="click: create, visible: enableCriteriaEdit()">
+          Create
+        </button>
+        <button class="btn btn-primary" data-bind="click: create, visible: !enableCriteriaEdit()">
+          Edit
+        </button>
+        <button class="btn btn-primary" data-bind="click: cancel">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="edit_criteria"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="editCriteriaModal"
+  >
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="editCriteriaModal">
+            Criteria
+          </h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-1 pad-1-right">Scope</div>
+            <div class="col-xs-2 pad-1">Class</div>
+            <div class="col-xs-2 pad-1">Attribute Group</div>
+            <div class="col-xs-2 pad-1">Attribute</div>
+            <div class="col-xs-1 pad-1">Operator</div>
+            <div class="col-xs-3 pad-1">Value</div>
+            <div class="col-xs-1 pad-1-left"></div>
+          </div>
+          <div data-bind="foreach: criteriaRows">
+            <div class="row">
+              <div class="col-xs-1 pad-1-right">
+                <select
+                  class="form-control input-sm"
+                  data-bind="options: $parent.scopeList, value: scope, event:{ change: $parent.handleScopeChange}"
+                ></select>
+              </div>
+              <div class="col-xs-2 pad-1">
+                <select
+                  class="form-control input-sm"
+                  data-bind="enable: $parent.enableClassName($index()), options: classList, optionsText: 'displayName', value: className, optionsCaption: 'Select Class Name...', event:{ change: $parent.handleClassChange}"
+                ></select>
+              </div>
+              <div class="col-xs-2 pad-1">
+                <select
+                  class="form-control input-sm"
+                  data-bind="options: attributeGroupList, optionsText: 'displayName', value: attributeGroup, optionsCaption: 'Select Attribute Group...', event:{ change: $parent.handleAttrGroupChange}"
+                ></select>
+              </div>
+              <div class="col-xs-2 pad-1">
+                <select
+                  class="form-control input-sm"
+                  data-bind="options: attributeList, optionsText: 'displayName', value: attribute, optionsCaption: 'Select Attribute...', event:{ change: $parent.handleAttrChange}"
+                ></select>
+              </div>
+              <div class="col-xs-1 pad-1">
+                <select
+                  class="form-control input-sm"
+                  data-bind="options: operatorList, optionsText: 'displayName', value: operator"
+                ></select>
+              </div>
+              <div class="col-xs-3 pad-1">
+                <!--ko if: lov().length > 0-->
+                <select
+                  class="form-control input-sm"
+                  data-bind="options: lov, value: value"
+                ></select>
+                <!--/ko-->
+
+                <!--ko ifnot: lov().length > 0-->
+                <input
+                  class="form-control input-sm"
+                  type="text"
+                  data-bind="value: value"
+                />
+                <!--/ko-->
+              </div>
+              <div class="col-xs-1 pad-1-left">
+                <span data-bind="text: conjunction"> </span>
+                <div class="btn-group">
+                  <button
+                    type="button"
+                    class="btn btn-warning btn-xs"
+                    data-bind="click: $parent.deleteModalRow, enable: $parent.enableModalRowDelete($index())"
+                  >
+                    <i class="glyphicon glyphicon-minus"> </i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-warning btn-xs"
+                    data-bind="click: $parent.addModalRow, enable: $parent.enableModalRowAdd($index())"
+                  >
+                    <i class="glyphicon glyphicon-plus"> </i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bind="click: editCriteria"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div id="demo_div" class="col-md-10 col-md-offset-1">
+	<!-- ko if: errors().length > 0-->
+	<h3>Errors:</h3>
+	<ul id="validation_errors" data-bind="foreach: errors">
+	    <li data-bind="text: $data"></li>
+	</ul>
+	<!-- /ko -->
+	
+	<!-- ko if: errors().length == 0 && validationCompleted -->
+	<div id="success_message">Process completed successfully</div>
+	<!-- /ko -->
+</div>

@@ -1,0 +1,118 @@
+<div id="FormCreationDiv" class="col-md-10 col-md-offset-1 m-auto">
+    <div class="page-title">
+        <span> MPN Manager </span> 
+    </div>
+
+
+    <form>
+        <h5>Excel Import</h5>
+        <div class="m-2">
+            <div class="input-group row mb-3 mx-4 w-25">
+                <input type="file" class="form-control"
+                       data-bind="event: {change: $root.fileUpload}"
+                       id="attachmentFile" name="attachmentFile">
+
+            </div>
+
+        </div>
+        <button id="btnImport" type="button"
+                class="mt-3 btn btn-primary mx-3"
+                data-bind="click: showModal">
+            Import
+        </button>
+        <br />
+        
+        <div class="mt-3" data-bind="visible : errors().length > 0">
+        <h5 class="mt-3">Errors</h5>
+        <ul>
+			<!-- ko foreach: errors -->
+			<li class="error error-message" data-bind="text: $data"></li>
+			<!-- /ko -->
+		</ul>       
+        </div>
+    </form>
+    <hr/>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Change Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="">
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">Change Method:</label>
+                            <div class="col-sm-8">
+                                <select id="changeMethod" class="form-control"
+                                        data-bind="value: changeMethodTypeSelect, event : {change : onChangeMethodEvent}">
+                                    <option value="new">Create New Change</option>
+                                    <option value="existing">Select Existing Change</option>
+                                </select>
+                            </div>
+
+
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">Change Type:</label>
+                            <div class="col-sm-8">
+                                <select data-bind="options: changeTypeOptions, optionsText: 'displayName', value: changeTypeSelect"
+                                        class="form-control">
+                                </select>
+                            </div>
+
+
+                        </div>
+                    </form>
+
+                    <form id="createForm" data-bind="visible: isNewChangeSelected"
+                          class="">
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">Change Number:</label>
+                            <div class="col-sm-8">
+                                <input id="cotext" required data-bind="value: createChangeNotice"
+                                       type="text" class="form-control" placeholder="XXXXXX"
+                                       disabled>
+                            </div>
+
+
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">Change Name:</label>
+                            <div class="col-sm-8">
+                                <input id="changeName" data-bind="value: changeName" type="text"
+                                       class="form-control" placeholder="Enter Change Name" required>
+                                 <div id="requiredName" class="error error-message mx-2" style="font-size:10px;" data-bind="visible: changeName().length === 0">*Change Name is Required</div>      
+                            </div>
+
+
+                        </div>
+
+                    </form>
+
+                    <form id="selectExistingChangeForm" data-bind="visible: isExistingChangeSelected">
+                        <div class="row mb-3">
+                            <label class="col-sm-3 col-form-label">Change Number:</label>
+                            <div class="col-sm-8">
+                                <select required id="changeNoticeSearch" class="form-control"
+                                        data-bind="select2:changeNoticeSelect2, value:changeNotice"></select>
+								<div id="requiredumber" class="error error-message mx-2" style="font-size:10px;" data-bind="visible: !changeNotice()">*Change Number is Required</div>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bind="click: sendRequest">Import</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

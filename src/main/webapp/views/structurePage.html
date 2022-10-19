@@ -1,0 +1,128 @@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet'
+	type='text/css'>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
+	id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+<div id="structure_div" style="background-color: #e6e6e6;">
+	<!--Div for showing Structure details in DB on Load-->
+	<div class="container" style="width: auto;">
+		<br><br>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="panel panel-default panel-table">
+					<div class="panel-heading" style="background-color:#2952a3">
+						<div class="row">
+							<div class="col col-xs-6">
+								<b><span class="panel-title"
+										style="color:rgb(243, 243, 243);">&nbsp;&nbsp;&nbsp;Structures of Item #
+									</span></b><b><span class="panel-title" style="color:rgb(243, 243, 243)"
+										data-bind="text:CorespondingItemId"></span></b>
+							</div>
+							<div class="col col-xs-6 text-right">
+								<button type="button" class="btn btn-lg  btn-create" data-toggle="modal"
+									data-target="#createModal" style="background:#5bc0de;color:#f2f2f2"><em
+										class="fa fa-plus" style="font-size:24px;"></em> &nbsp;Add Structure</button>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body table-responsive" class="container" style="overflow:scroll;height:600px">
+						<table class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th>Structure Name</th>
+									<th>Structure Quantity</th>
+									<th>Structure Description</th>
+									<th>Settings </th>
+								</tr>
+							</thead>
+							<tbody data-bind="foreach:structureList()">
+								<tr>
+									<td data-bind="text:structureName"></td>
+									<td data-bind="text:structureQuantity"></td>
+									<td data-bind="text:structureDescription"></td>
+									<td align="center">
+										<button type="button" class="btn btn-lg  btn-hover btn-danger "
+											data-bind="click:$root.DeleteStructureFunction" data-toggle="modal"
+											data-target="#deleteModal"><em class="fa fa-trash"></em> </button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="panel-footer">
+						<div class="row">
+							<div class="col col-xs-4">&nbsp;All rights reserved
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Div for deleting a structure of an item stored in DB-->
+	<div class="modal fade-in" id="deleteModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+		style="height:170px;width:350px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" style="color:#da4f49;">Do you still wish to delete this structure?</h4>
+			</div>
+			<div class="modal-body">
+				<span>The Structure will be deleted permenantly.</span>
+			</div>
+			<div class="modal-footer">
+				<button type="button" data-bind="click:DeleteStructureModal"
+					class="btn btn-sm btn-danger">Delete</button>
+				<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+	<!--Div to create structure of an item on DB-->
+	<div class="modal fade-in" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		aria-hidden="true" style="background-color:none;height:350px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h4 class="modal-title" style="color: #006dcc;;">Create New Structure</h4>
+			</div>
+			<div class="modal-body">
+				<form id="createNewItem" class="form-horizontal">
+					<div class="form-group">
+						<label class="control-label col-sm-5"><b>Structure Name:</b></label>
+						<div class="col-sm-7">
+							<input required="" data-bind="value:createStructureName" type="text" class="form-control"
+								placeholder="Enter Name....">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-5"><b>Structure Quantity:</b></label>
+						<div class="col-sm-7">
+							<input required="" data-bind="value:createStructureQuantity" type="number"
+								class="form-control" placeholder="Enter Quantity...">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-5"><b>Structure Description:</b></label>
+						<div class="col-sm-7">
+							<input required="" style="height: 100px;" data-bind="value:createStructureDescription"
+								type="text" class="form-control" placeholder="Enter Description...">
+						</div>
+					</div>
+					<div class="form-group">
+						<span class="col-sm-7 error-message "></span>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<input class="hidden-element btn btn-sm btn-primary" type="submit" value="Create"
+					data-bind="click:$root.CreateStructureFunction">
+				<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+
+</div>

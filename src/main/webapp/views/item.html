@@ -1,0 +1,300 @@
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet'
+	type='text/css'>
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet"
+	id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+
+<div id="item_div" style="background-color: #e6e6e6;">
+
+	<!--Div for Editting Modal  for an item-->
+	<div class="modal" id="editModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+		style="height:370px;width:fit-content;">
+		<div class="modal-dialog">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h4 class="modal-title" style="color:#006dcc;">Edit Item</h4>
+			</div>
+			<div class="modal-body">
+				<form id="createNewItem" class="form-horizontal">
+					<div class="form-group">
+						<label class="control-label col-sm-5"><b>Item Name:</b></label>
+						<div class="col-sm-7">
+							<input required="" data-bind="value:editItemName" type="text" class="form-control"
+								placeholder="Enter new name....">
+						</div>
+					</div>
+					<div class="form-group ">
+						<label class="control-label col-sm-5"><b>Item Class:</b></label>
+						<div class="col-sm-5">
+							<select class="form-control ">
+								<option value="1">Root Item Class</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-5"><b>Item Description:</b></label>
+						<div class="col-sm-7">
+							<input required="" style="height: 100px;" data-bind="value:editItemDescription" type="text"
+								class="form-control" placeholder="Enter new description">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<input class="hidden-element btn btn-sm btn-primary" type="submit" data-bind="click:$root.EditItemModal"
+					value="Edit">
+				<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+	<!--Div for creating change order Modal-->
+	<div class="modal fade-in" id="changeOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		aria-hidden="true" style="background-color:none;height:360px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h4 class="modal-title" style="color:#006dcc;">Change Order Deatils</h4>
+			</div>
+			<div class="modal-body">
+				<form id="createNewItem" class="form-horizontal">
+					<div class="form-group">
+						<div class="col-sm-7">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-5"><b>Change Notice:</b></label>
+						<div class="col-sm-7">
+							<input required="" data-bind="value:changeNotice" type="text" class="form-control"
+								placeholder="Enter change notice....">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-5"><b>Change Name:</b></label>
+						<div class="col-sm-7">
+							<input required="" data-bind="value:changeName" type="text" class="form-control"
+								placeholder="Enter change name.....">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-5"><b>Change Description:</b></label>
+						<div class="col-sm-7">
+							<input required="" style="height: 100px;" data-bind="value:changeDescription" type="text"
+								class="form-control" placeholder="Enter change description....">
+						</div>
+					</div>
+					<div class="form-group">
+						<span class="col-sm-7 error-message "></span>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<input class="hidden-element btn btn-sm btn-primary" type="submit" value="Create"
+					data-bind="click:$root.CreateChangeOrderRequest">
+				<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+	<!--Div for Items  to show Item Deatils on Load-->
+	<div class="container" style="width: auto;">
+		<br><br>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="panel panel-default panel-table">
+					<div class="panel-heading" style="background-color:#2952a3">
+						<div class="row">
+							<div class="col col-xs-6">
+								<h1 class="panel-title" style="color:rgb(243, 243, 243);">&nbsp;&nbsp;&nbsp;Data from
+									Local DataBase</h1>
+							</div>
+							<div class="col col-xs-6 text-right">
+
+								<button type="button" class="btn btn-lg  btn-create" data-toggle="modal"
+									data-target="#createModal" style="background:#5bc0de;color:#f2f2f2"><em
+										class="fa fa-plus" style="font-size:24px;"></em> &nbsp;Create New Item</button>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body table-responsive" class="container" style="overflow:scroll;height:350px">
+						<table class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th>Item Name</th>
+									<th>Item Description</th>
+									<th>Settings </th>
+									<th>Structures</th>
+									<th>Attachments</th>
+									<th>Cloud Sync Status</th>
+								</tr>
+							</thead>
+							<tbody data-bind="foreach:databaseList()">
+								<tr>
+									<td data-bind="text:itemName"></td>
+									<td data-bind="text:itemDescription"></td>
+									<td align="center">
+										<button class="btn btn-default btn-hover"
+											data-bind="click:$root.EditItemFunction" data-toggle="modal"
+											data-target="#editModal" style="background:#e6b800;color:#f2f2f2;"><em
+												class="fa fa-pencil"></em></button>
+										<button type="button" class="btn btn-lg  btn-hover btn-danger "
+											data-bind="click:$root.DeleteItemFunction" data-toggle="modal"
+											data-target="#deleteModal"><em class="fa fa-trash"></em> </button>
+
+										<button type="button" data-bind="click:$root.createCloudItem"
+											class="btn btn-lg  btn-create" style="background:#5cb85c;color:#f2f2f2"><em
+												class="fa fa-cloud-upload"></em></button>
+									</td>
+									<td>
+										<button class="btn btn-default btn-hover"
+											data-bind="click:$root.redirectToStructure"
+											style="background:teal;color:#f2f2f2;"><em class="fa fa-file-image-o"></em>
+											Structures</button>
+									</td>
+									<td>
+										<button class="btn btn-default btn-hover"
+											data-bind="click:$root.redirectToAttachment"
+											style="background:cornflowerblue;color:#f2f2f2;"><em
+												class="fa fa-paperclip"></em>
+											Attachments</button>
+									</td>
+									<td><span data-bind="text:itemSyncStatus"
+											style="background-color:#da4f49; font-weight: bold;  padding-block: inherit; padding-inline: inherit; color: whitesmoke;  border-radius: 4px; font-size: 11px;"></span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="panel-footer">
+						<div class="row">
+
+							<div class="col col-xs-4">&nbsp;All rights reserved
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!--Div for deleting Modal for item-->
+	<div class="modal fade-in" id="deleteModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+		style="height:150px;width:350px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" style="color:#da4f49;">Do you still wish to delete?</h4>
+			</div>
+			<div class="modal-body">
+				<span>The item may contain Structures and Attachments</span>
+			</div>
+			<div class="modal-footer">
+				<button type="button" data-bind="click:DeleteItemModal" class="btn btn-sm btn-danger">Delete</button>
+				<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+
+	<!--Div for creating Item on DB-->
+	<div class="modal fade-in" id="createModal" role="dialog"
+		style=" box-shadow:0 4px 20px;background-color:none;height:370px; ">
+		<div class="modal-content" style="box-shadow:0 4px 20px;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h4 class="modal-title" style="color:#006dcc;">Create New Item</h4>
+			</div>
+			<div class="modal-body">
+
+				<form id="createNewItem" class="form-horizontal">
+					<div class="form-group">
+						<div class="col-sm-7">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-5"><b>Item Name:</b></label>
+						<div class="col-sm-7">
+							<input required="" data-bind="value:createName" type="text" class="form-control"
+								placeholder="Enter name....">
+						</div>
+					</div>
+					<div class="form-group ">
+						<label class="control-label col-sm-5"><b>Item Class:</b></label>
+						<div class="col-sm-5">
+							<select class="form-control ">
+								<option value="1">Root Item Class</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="control-label col-sm-5"><b>Item Description:</b></label>
+						<div class="col-sm-7">
+							<input required="" style="height: 100px;" data-bind="value:createDescription" type="text"
+								class="form-control" placeholder="Enter description...">
+						</div>
+					</div>
+					<div class="form-group">
+						<span class="col-sm-7 error-message "></span>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<input class="hidden-element btn btn-sm btn-primary" type="submit" value="Create"
+					data-bind="click:$root.CreateItemFunction">
+				<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+	<!--Div for showing items details that are synched on cloud-->
+	<div class="container" style="width: auto;">
+		<br><br><br><br><br>
+		<div class="row">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="panel panel-default panel-table">
+					<div class="panel-heading" style="background-color:#2952a3">
+						<div class="row">
+							<div class="col col-xs-6">
+								<h1 class="panel-title" style="color:rgb(243, 243, 243);">&nbsp;&nbsp;&nbsp;Data from
+									Oracle Cloud</h1>
+							</div>
+						</div>
+					</div>
+					<div class="panel-body table-responsive" class="container" style="overflow:scroll;height:350px">
+						<table class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th>Item Name</th>
+									<th>Item Description</th>
+									<th>Change order Number</th>
+									<th>sync status</th>
+								</tr>
+							</thead>
+							<tbody data-bind="foreach:cloudList()">
+								<tr>
+									<td data-bind="text:itemName"></td>
+									<td data-bind="text:itemDescription"></td>
+									<td data-bind=text:changeOrderId></td>
+									<td><span data-bind="text:itemSyncStatus"
+											style="background-color:#e6b800 ; font-weight: bold;  padding-block: inherit; padding-inline: inherit; color: whitesmoke;  border-radius: 4px; font-size: 11px;"></span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="panel-footer">
+						<div class="row">
+							<div class="col col-xs-4">&nbsp;All rights reserved
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+</div>
